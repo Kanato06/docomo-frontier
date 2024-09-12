@@ -106,19 +106,23 @@ export default function GoalResultPage() {
 
   // 取得したデータを処理してユーザー目標情報を設定
   useEffect(() => {
-    const filteredGoals = goalForTwoUsers.filter((goal) => goal.goalId != null);
-    const maxGoalId = Math.max(...filteredGoals.map((goal) => goal.goalId!));
-    const maxGoalElement = filteredGoals.find(
-      (goal) => goal.goalId === maxGoalId
+    const filteredGoals = goalForTwoUsers.filter(
+      (goal) => goal.createdAt != null
     );
 
-    if (maxGoalElement) {
-      const tmpgoal = maxGoalElement?.goal ?? "";
-      const tmpreward1 = maxGoalElement?.reward1 ?? "";
-      const tmpmoney1 = maxGoalElement?.money1 ?? 0;
-      const tmpreward2 = maxGoalElement?.reward2 ?? "";
-      const tmpmoney2 = maxGoalElement?.money2 ?? 0;
-      const tmpgoalDate = maxGoalElement?.goalDate ?? "";
+    // createdAtでソートして最新の目標を取得
+    const latestGoalElement = filteredGoals.sort(
+      (a, b) =>
+        new Date(b.createdAt!).getTime() - new Date(a.createdAt!).getTime()
+    )[0];
+
+    if (latestGoalElement) {
+      const tmpgoal = latestGoalElement?.goal ?? "";
+      const tmpreward1 = latestGoalElement?.reward1 ?? "";
+      const tmpmoney1 = latestGoalElement?.money1 ?? 0;
+      const tmpreward2 = latestGoalElement?.reward2 ?? "";
+      const tmpmoney2 = latestGoalElement?.money2 ?? 0;
+      const tmpgoalDate = latestGoalElement?.goalDate ?? "";
 
       const data: UserGoal[] = [
         {
