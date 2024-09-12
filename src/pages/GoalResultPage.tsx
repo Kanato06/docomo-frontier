@@ -28,16 +28,17 @@ enum AuditStatus {
 
 const GoalResultPage: React.FC = () => {
     const navigate = useNavigate();
-    const [image, setImage] = useState<File | null>(null);
+    // const [image, setImage] = useState<File | null>(null);
     const [auditStatus, setAuditStatus] = useState<AuditStatus>(AuditStatus.PENDING);
 
     // 画像アップロードハンドラ
     const handleImageUpload = (event: ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : null;
-        setImage(file);
+        // setImage(file);
         if (file) {
             // 画像アップロード処理を追加
             // ここでバックエンドと通信して審査ステータスを更新
+            setAuditStatus(AuditStatus.SUCCESS);
         }
     };
 
