@@ -9,7 +9,6 @@ import { generateClient } from "aws-amplify/data";
 const client = generateClient<Schema>();
 
 const GoalSettingPage: React.FC = () => {
-    const navigate = useNavigate();
     const [goal, setGoal] = useState<string>('');
     const [amazonLink1, setAmazonLink1] = useState<string>('');
     const [money1, setMoney1] = useState<string>('');
@@ -18,17 +17,21 @@ const GoalSettingPage: React.FC = () => {
     const [deadline, setDeadline] = useState<Dayjs | null>(null);
     const [goalId, setGoalId] = useState<number>(0); // 初期値は1
 
-    // 目標が既に設定されている場合はリダイレクト
+    // 初回読み込み時に localStorage から goalId を取得
     useEffect(() => {
-        const goalStatus = localStorage.getItem('isGoalSet');
-        if (goalStatus) {
-            navigate('/result');
+        const storedGoalId = localStorage.getItem('goalId');
+        if (storedGoalId) {
+            setGoalId(parseInt(storedGoalId, 10)); // localStorageの値を数値に変換してセット
         }
-    }, [navigate]);
+    }, []);
 
     // フォームの送信処理
     const handleSubmit = async () => {
-        setGoalId((prevGoalId) => prevGoalId + 1);
+        setGoalId((prevGoalId) => {
+            const newGoalId = prevGoalId + 1;
+            localStorage.setItem('goalId', newGoalId.toString()); // 新しい goalId を localStorage に保存
+            return newGoalId;
+        });
         const data = {
             goalId: goalId,
             goal: goal,

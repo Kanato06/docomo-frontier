@@ -81,11 +81,16 @@ export default function GoalResultPage() {
         client.models.GoalForTwoUsers.observeQuery().subscribe({
             next: (data) => setGoalForTwoUsers([...data.items]),
         });
-
+        console.log(goalForTwoUsers);
         const filteredGoals = goalForTwoUsers.filter(goal => goal.goalId != null);
-        if (filteredGoals.length === 0) { return; }
+        console.log("filteredGoals");
+        console.log(filteredGoals);
         const maxGoalId = Math.max(...filteredGoals.map(goal => goal.goalId!));
+        console.log("maxGoalId");
+        console.log(maxGoalId);
         let maxGoalElement = filteredGoals.find(goal => goal.goalId === maxGoalId);
+        console.log("maxGoalElement");
+        console.log(maxGoalElement);
 
         const tmpgoal = maxGoalElement?.goal ?? "";
         const tmpreward1 = maxGoalElement?.reward1 ?? "";
@@ -94,45 +99,43 @@ export default function GoalResultPage() {
         const tmpmoney2 = maxGoalElement?.money2 ?? 0;
         const tmpgoalDate = maxGoalElement?.goalDate ?? "";
 
-        // const data: UserGoal[] = [
-        //     {
-        //         goal: tmpgoal ?? "",
-        //         reward: tmpreward1 ?? "",
-        //         amount: tmpmoney1 ?? 0,
-        //         status: "審査中",
-        //         deadline: tmpgoalDate ?? "",
-        //     },
-        //     {
-        //         goal: tmpgoal ?? "",
-        //         reward: tmpreward2 ?? "",
-        //         amount: tmpmoney2 ?? 0,
-        //         status: "審査中",
-        //         deadline: tmpgoalDate ?? "",
-        //     },
-        // ];
-
         const data: UserGoal[] = [
             {
-                goal: "英検一級",
-                reward: "バッグ",
-                amount: 30000,
+                goal: tmpgoal ?? "",
+                reward: tmpreward1 ?? "",
+                amount: tmpmoney1 ?? 0,
                 status: "審査中",
-                deadline: "2022-12-31",
+                deadline: tmpgoalDate ?? "",
             },
             {
-                goal: "英検一級",
-                reward: "香水",
-                amount: 2000,
+                goal: tmpgoal ?? "",
+                reward: tmpreward2 ?? "",
+                amount: tmpmoney2 ?? 0,
                 status: "審査中",
-                deadline: "2022-12-31",
+                deadline: tmpgoalDate ?? "",
             },
         ];
 
-
+        // const data: UserGoal[] = [
+        //     {
+        //         goal: "英検一級",
+        //         reward: "バッグ",
+        //         amount: 30000,
+        //         status: "審査中",
+        //         deadline: "2022-12-31",
+        //     },
+        //     {
+        //         goal: "英検一級",
+        //         reward: "香水",
+        //         amount: 2000,
+        //         status: "審査中",
+        //         deadline: "2022-12-31",
+        //     },
+        // ];
 
         setUserGoals(data);
 
-    }, []);
+    }, [goalForTwoUsers]);
 
     // ユーザーの目標情報を表示
     const renderUserGoals = () => (
