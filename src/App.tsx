@@ -6,6 +6,7 @@ import { ThemeProvider, createTheme } from '@mui/material';
 import GoalSettingPage from "./pages/GoalSettingPage";
 import GoalResultPage from "./pages/GoalResultPage";
 import HomePage from './pages/HomePage';  // ホームページをインポート
+import HelpPage from './pages/HelpPage';
 
 // const client = generateClient<Schema>();
 
@@ -50,6 +51,9 @@ function App() {
 
           {/* 目標達成確認ページ */}
           <Route path="/goal-result" element={<GoalResultPage />} />
+
+          {/* ヘルプページ */}
+          <Route path="/help" element={<HelpPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
