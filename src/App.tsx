@@ -1,6 +1,3 @@
-// import { useEffect, useState } from "react";
-// import type { Schema } from "../amplify/data/resource";
-// import { generateClient } from "aws-amplify/data";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import GoalSettingPage from "./pages/GoalSettingPage";
@@ -12,10 +9,11 @@ import HelpPage from "./pages/HelpPage";
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#6366F1", // プライマリカラー
+      main: "#DC0000", // プライマリカラー
     },
     secondary: {
-      main: "#A78BFA", // セカンダリカラー
+      main: "#FFDB89", // セカンダリカラー
+      dark: "#850000",
     },
     background: {
       default: "#EEF2FF", // 全体の背景色
@@ -25,22 +23,6 @@ const theme = createTheme({
 });
 
 function App() {
-  // const [goalForTwoUsers, setUser] = useState<Array<Schema["GoalForTwoUsers"]["type"]>>([]);
-
-  // useEffect(() => {
-  //   client.models.GoalForTwoUsers.observeQuery().subscribe({
-  //     next: (data) => setUser([...data.items]),
-  //   });
-  // }, []);
-
-  // function createUser() {
-  //   client.models.User.create({
-  //     name: "myname",
-  //     email: "myemail",
-  //     createdAt: 2024
-  //   });
-  // }
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
