@@ -8,8 +8,6 @@ import GoalResultPage from "./pages/GoalResultPage";
 import HomePage from './pages/HomePage';  // ホームページをインポート
 import HelpPage from './pages/HelpPage';
 
-const client = generateClient<Schema>();
-
 // テーマを作成
 const theme = createTheme({
   palette: {
