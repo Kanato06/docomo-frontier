@@ -2,7 +2,8 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Box, Typography, Container, Paper, Input, Grid, Card, CardContent, Chip, Divider, LinearProgress } from "@mui/material";
 import type { Schema } from "../../amplify/data/resource";
-
+import { generateClient } from "aws-amplify/data";
+const client = generateClient<Schema>();
 
 import {
     ArrowBack as ArrowBackIcon,
@@ -76,47 +77,61 @@ export default function GoalResultPage() {
 
     // バックエンドから目標データを取得
     useEffect(() => {
-        const maxGoalElement = goalForTwoUsers.reduce((max, current) => {
-            // current.goalId が null または undefined の場合は比較しない
-            if (current.goalId == null) {
-                return max;
-            }
-            // max.goalId が null または undefined の場合、current を新たな max とする
-            if (max.goalId == null || current.goalId > max.goalId) {
-                return current;
-            }
-            return max;
+
+        client.models.GoalForTwoUsers.observeQuery().subscribe({
+            next: (data) => setGoalForTwoUsers([...data.items]),
         });
-        setGoalForTwoUsers([maxGoalElement]);
 
-        const tmpgoal = maxGoalElement.goal;
-        const tmpreward1 = maxGoalElement.reward1;
-        const tmpmoney1 = maxGoalElement.money1;
-        const tmpreward2 = maxGoalElement.reward2;
-        const tmpmoney2 = maxGoalElement.money2;
-        const tmpgoalDate = maxGoalElement.goalDate;
+        const filteredGoals = goalForTwoUsers.filter(goal => goal.goalId != null);
+        if (filteredGoals.length === 0) { return; }
+        const maxGoalId = Math.max(...filteredGoals.map(goal => goal.goalId!));
+        let maxGoalElement = filteredGoals.find(goal => goal.goalId === maxGoalId);
 
-        const fetchData = async () => {
-            // APIからデータを取得する部分（ダミーデータとして設定）
-            const data: UserGoal[] = [
-                {
-                    goal: tmpgoal ?? "",
-                    reward: tmpreward1 ?? "",
-                    amount: tmpmoney1 ?? 0,
-                    status: "審査中",
-                    deadline: tmpgoalDate ?? "",
-                },
-                {
-                    goal: tmpgoal ?? "",
-                    reward: tmpreward2 ?? "",
-                    amount: tmpmoney2 ?? 0,
-                    status: "審査中",
-                    deadline: tmpgoalDate ?? "",
-                },
-            ];
-            setUserGoals(data);
-        };
-        fetchData();
+        const tmpgoal = maxGoalElement?.goal ?? "";
+        const tmpreward1 = maxGoalElement?.reward1 ?? "";
+        const tmpmoney1 = maxGoalElement?.money1 ?? 0;
+        const tmpreward2 = maxGoalElement?.reward2 ?? "";
+        const tmpmoney2 = maxGoalElement?.money2 ?? 0;
+        const tmpgoalDate = maxGoalElement?.goalDate ?? "";
+
+        // const data: UserGoal[] = [
+        //     {
+        //         goal: tmpgoal ?? "",
+        //         reward: tmpreward1 ?? "",
+        //         amount: tmpmoney1 ?? 0,
+        //         status: "審査中",
+        //         deadline: tmpgoalDate ?? "",
+        //     },
+        //     {
+        //         goal: tmpgoal ?? "",
+        //         reward: tmpreward2 ?? "",
+        //         amount: tmpmoney2 ?? 0,
+        //         status: "審査中",
+        //         deadline: tmpgoalDate ?? "",
+        //     },
+        // ];
+
+        const data: UserGoal[] = [
+            {
+                goal: "英検一級",
+                reward: "バッグ",
+                amount: 30000,
+                status: "審査中",
+                deadline: "2022-12-31",
+            },
+            {
+                goal: "英検一級",
+                reward: "香水",
+                amount: 2000,
+                status: "審査中",
+                deadline: "2022-12-31",
+            },
+        ];
+
+
+
+        setUserGoals(data);
+
     }, []);
 
     // ユーザーの目標情報を表示
