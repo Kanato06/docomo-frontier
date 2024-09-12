@@ -52,6 +52,9 @@ const HomePage: React.FC = () => {
                 <ListItem component="button" onClick={() => handleNavigation('/goal-result')}>
                     <ListItemText primary="目標達成確認" />
                 </ListItem>
+                <ListItem component="button" onClick={() => handleNavigation('/help')}>
+                    <ListItemText primary="ヘルプ" />
+                </ListItem>
             </List>
         </Drawer>
     );
