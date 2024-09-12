@@ -16,6 +16,7 @@ const GoalSettingPage: React.FC = () => {
     const [amazonLink2, setAmazonLink2] = useState<string>('');
     const [money2, setMoney2] = useState<string>('');
     const [deadline, setDeadline] = useState<Dayjs | null>(null);
+    const [goalId, setGoalId] = useState<number>(0); // 初期値は1
 
     // 目標が既に設定されている場合はリダイレクト
     useEffect(() => {
@@ -27,7 +28,9 @@ const GoalSettingPage: React.FC = () => {
 
     // フォームの送信処理
     const handleSubmit = async () => {
+        setGoalId((prevGoalId) => prevGoalId + 1);
         const data = {
+            goalId: goalId,
             goal: goal,
             reward1: amazonLink1,
             money1: parseInt(money1),
@@ -46,7 +49,7 @@ const GoalSettingPage: React.FC = () => {
             </Typography>
             <TextField
                 fullWidth
-                label="Amazonのリンクを入力"
+                label="ご褒美に欲しいものを入力"
                 value={person === 1 ? amazonLink1 : amazonLink2}
                 onChange={(e) => person === 1 ? setAmazonLink1(e.target.value) : setAmazonLink2(e.target.value)}
                 variant="outlined"
@@ -54,7 +57,7 @@ const GoalSettingPage: React.FC = () => {
             />
             <TextField
                 fullWidth
-                label="お金を入力"
+                label="金額を入力"
                 value={person === 1 ? money1 : money2}
                 onChange={(e) => person === 1 ? setMoney1(e.target.value) : setMoney2(e.target.value)}
                 type="number"
