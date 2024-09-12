@@ -42,7 +42,7 @@ const Header: React.FC = () => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-              モチトモ（モチベーション友達）
+              モチトモ
             </Typography>
           </Toolbar>
         </AppBar>
