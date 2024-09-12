@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Header from "../components/Header";
 import {
   AppBar,
   Toolbar,
@@ -78,24 +79,6 @@ const HelpPage: React.FC = () => {
   const renderMainContent = () => (
     <Container>
       <Box mt={4}>
-        {/* <Typography variant="h5" gutterBottom sx={{ textAlign: 'center' }}>
-                    覚悟を決めれば<br />
-                    どんな目標も達成できる
-                </Typography>
-                <Box sx={{ textAlign: 'center', mt: 3 }}>
-                    <img src={manImage} alt="Man" style={{ width: '150px', height: 'auto' }} />
-                </Box>
-                <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
-                    目標とご褒美を設定できる
-                </Typography>
-                <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }}>
-                    友達と取り組める
-                </Typography>
-                <Typography variant="h6" gutterBottom sx={{ textAlign: 'center' }} mb={20}>
-                    一人でも失敗すれば連帯責任<br />
-                    ご褒美なし！
-                </Typography > */}
-
         <Card variant="outlined">
           <Typography variant="body1" sx={{ textAlign: "center" }}>
             How to use ?
@@ -172,8 +155,7 @@ const HelpPage: React.FC = () => {
 
   return (
     <>
-      {renderAppBar()}
-      {renderDrawer()}
+      <Header />
       {renderMainContent()}
     </>
   );
