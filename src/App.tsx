@@ -12,16 +12,11 @@ function App() {
   }, []);
 
   const [user, setUser] = useState<Array<Schema["User"]["type"]>>([]);
-  const [goal, setGoal] = useState<Array<Schema["Goal"]["type"]>>([]);
-  const [document, setDocument] = useState<Array<Schema["Document"]["type"]>>([]);
-  const [result, setResult] = useState<Array<Schema["Result"]["type"]>>([]);
 
   function createUser() {
     client.models.User.create({
-      // content: window.prompt("Todo content")
       name: "myname",
       email: "myemail",
-      password: "mypassword",
       createdAt: 2024
     });
   }
