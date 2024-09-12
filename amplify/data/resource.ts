@@ -3,7 +3,6 @@ import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 const schema = a.schema({
   GoalForTwoUsers: a
     .model({
-      goalId: a.integer(),
       goal: a.string(),
       reward1: a.string(),
       money1: a.integer(),
