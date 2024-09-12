@@ -5,7 +5,6 @@ const schema = a.schema({
     .model({
       name: a.string(),
       email: a.string(),
-      password: a.string(),
       createdAt: a.timestamp(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
