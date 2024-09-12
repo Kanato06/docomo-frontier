@@ -10,7 +10,6 @@ const schema = a.schema({
       reward2: a.string(),
       money2: a.integer(),
       goalDate: a.date(),
-      createdAt: a.timestamp(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
