@@ -50,7 +50,7 @@ const GoalSettingPage: React.FC = () => {
 
   const renderAmazonFields = (person: number) => (
     <Grid item xs={12} key={person}>
-      <Typography variant="h6" gutterBottom color="secondary">
+      <Typography variant="h6" gutterBottom color="secondary.dark">
         {person}人目
       </Typography>
       <TextField
@@ -113,7 +113,7 @@ const GoalSettingPage: React.FC = () => {
               component="h1"
               gutterBottom
               align="center"
-              color="secondary"
+              color="secondary.dark"
             >
               期限設定
             </Typography>

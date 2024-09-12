@@ -62,6 +62,10 @@ const Header: React.FC = () => {
           <ListItem
             component="button"
             onClick={() => headerHandleNavigation("/goal-setting")}
+            sx={{
+              color: "primary",
+              backgroundColor: "primary",
+            }}
           >
             <ListItemText primary="目標設定" />
           </ListItem>
