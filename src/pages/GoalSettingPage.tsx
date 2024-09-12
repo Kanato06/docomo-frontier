@@ -2,10 +2,18 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
 import CommonLayout from "../components/CommonLayout";
 import { useHandleNavigation } from "../components/navigation";
-import { TextField, Button, Typography, Grid, Box, Alert } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Typography,
+  Grid,
+  Box,
+  Alert,
+  Snackbar,
+} from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { Dayjs } from "dayjs";
+import dayjs, { Dayjs } from "dayjs"; // dayjs をインポート
 import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 const client = generateClient<Schema>();
@@ -21,6 +29,7 @@ const GoalSettingPage: React.FC = () => {
   const [deadline, setDeadline] = useState<Dayjs | null>(null);
   const [goalId, setGoalId] = useState<number>(0);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
+  const [showSnackbar, setShowSnackbar] = useState<boolean>(false); // Snackbar表示用のstate
 
   useEffect(() => {
     const storedGoalId = localStorage.getItem("goalId");
@@ -41,7 +50,18 @@ const GoalSettingPage: React.FC = () => {
       newErrors.amazonLink2 = "2人目のご褒美のリンクを入力してください";
     if (!money2 || isNaN(money2))
       newErrors.money2 = "2人目の金額を正しく入力してください";
-    if (!deadline) newErrors.deadline = "期限を選択してください";
+    if (!deadline) {
+      newErrors.deadline = "期限を選択してください";
+    } else {
+      const now = dayjs();
+      const diffInDays = deadline.diff(now, "day"); // 現在からの差分を日数で計算
+
+      if (diffInDays <= 7 && diffInDays >= 0) {
+        // 1週間以内ならSnackbar表示用のフラグを立てる
+        setShowSnackbar(true);
+        return false;
+      }
+    }
 
     setErrors(newErrors);
 
@@ -181,6 +201,14 @@ const GoalSettingPage: React.FC = () => {
           </Grid>
         </Grid>
       </CommonLayout>
+
+      {/* Snackbarを表示 */}
+      <Snackbar
+        open={showSnackbar}
+        onClose={() => setShowSnackbar(false)}
+        autoHideDuration={6000}
+        message="あなた方の目標は本当に1週間以内で達成できますか？もう1度よく考えてください。"
+      />
     </>
   );
 };
