@@ -76,7 +76,7 @@ const HomePage: React.FC = () => {
       {/* Headerを組み込み */}
       <Header />
       {/* AppBarの下に余白を追加して、コンテンツが隠れないようにする */}
-      <Box sx={{ mt: 8 }}></Box>
+      <Box sx={{ mt: 5 }}></Box>
       {renderMainContent()}
     </>
   );

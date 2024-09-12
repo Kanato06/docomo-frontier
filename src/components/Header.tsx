@@ -31,7 +31,7 @@ const Header: React.FC = () => {
     <>
       {/* AppBarの定義 */}
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="fixed" color="primary">
+        <AppBar component="header" position="fixed" color="primary">
           <Toolbar>
             <IconButton
               edge="start"
