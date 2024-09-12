@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
+import CommonLayout from "../components/CommonLayout"; // CommonLayoutをインポート
 import { useHandleNavigation } from "../components/navigation";
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  Container,
-  Paper,
-  Grid,
-} from "@mui/material";
+import { TextField, Button, Typography, Grid, Box } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Dayjs } from "dayjs";
@@ -56,7 +49,7 @@ const GoalSettingPage: React.FC = () => {
   };
 
   const renderAmazonFields = (person: number) => (
-    <Paper elevation={2} sx={{ p: 2, mb: 2, background: "#F3F4F6" }}>
+    <Grid item xs={12} key={person}>
       <Typography variant="h6" gutterBottom color="secondary">
         {person}人目
       </Typography>
@@ -83,80 +76,77 @@ const GoalSettingPage: React.FC = () => {
         variant="outlined"
         margin="normal"
       />
-    </Paper>
+    </Grid>
   );
 
   return (
     <>
       {/* Headerを挿入 */}
       <Header />
+      <Box sx={{ mt: 5 }}></Box>
 
-      <Container maxWidth="md">
-        <Box my={4}>
-          <Paper
-            elevation={3}
-            sx={{
-              p: 4,
-              background: "linear-gradient(145deg, #EEF2FF 0%, #E0E7FF 100%)",
-            }}
-          >
+      {/* CommonLayoutで囲む */}
+      <CommonLayout>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          align="center"
+          color="primary"
+        >
+          目標設定
+        </Typography>
+        <Grid container spacing={3}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="目標"
+              value={goal}
+              onChange={(e) => setGoal(e.target.value)}
+              variant="outlined"
+            />
+          </Grid>
+          {[1, 2].map((person) => renderAmazonFields(person))}
+          <Grid item xs={12}>
             <Typography
-              variant="h4"
+              variant="h6"
               component="h1"
               gutterBottom
               align="center"
-              color="primary"
+              color="secondary"
             >
-              目標設定
+              期限設定
             </Typography>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <TextField
-                  fullWidth
-                  label="目標"
-                  value={goal}
-                  onChange={(e) => setGoal(e.target.value)}
-                  variant="outlined"
-                />
-              </Grid>
-              {[1, 2].map((person) => (
-                <Grid item xs={12} key={person}>
-                  {renderAmazonFields(person)}
-                </Grid>
-              ))}
-              <Grid item xs={12}>
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
-                  <DatePicker
-                    label="目標達成期限を選択"
-                    value={deadline}
-                    onChange={(newValue: Dayjs | null) => setDeadline(newValue)}
-                    slotProps={{
-                      textField: { fullWidth: true, variant: "outlined" },
-                    }}
-                  />
-                </LocalizationProvider>
-              </Grid>
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  onClick={handleSubmit}
-                  sx={{
-                    mt: 2,
-                    mb: 2,
-                    width: "200px",
-                    display: "block",
-                    mx: "auto",
-                    fontSize: "1.5rem",
-                  }}
-                >
-                  決済
-                </Button>
-              </Grid>
-            </Grid>
-          </Paper>
-        </Box>
-      </Container>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <DatePicker
+                label="目標達成期限を選択"
+                value={deadline}
+                onChange={(newValue: Dayjs | null) => setDeadline(newValue)}
+                slotProps={{
+                  textField: { fullWidth: true, variant: "outlined" },
+                }}
+              />
+            </LocalizationProvider>
+          </Grid>
+          <Grid item xs={12}>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSubmit}
+              sx={{
+                mt: 2,
+                mb: 2,
+                width: "200px",
+                display: "block",
+                mx: "auto",
+                fontSize: "1.5rem",
+              }}
+            >
+              決済
+            </Button>
+          </Grid>
+        </Grid>
+      </CommonLayout>
     </>
   );
 };
