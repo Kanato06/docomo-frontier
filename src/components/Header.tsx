@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   const toggleDrawer = (open: boolean) => () => setDrawerOpen(open);
 
   // ページ遷移を行う関数
-  const handleNavigation = (path: string) => {
+  const headerHandleNavigation = (path: string) => {
     navigate(path);
     setDrawerOpen(false);
   };
@@ -53,19 +53,19 @@ const Header: React.FC = () => {
         <List>
           <ListItem
             component="button"
-            onClick={() => handleNavigation("/goal-setting")}
+            onClick={() => headerHandleNavigation("/goal-setting")}
           >
             <ListItemText primary="目標設定" />
           </ListItem>
           <ListItem
             component="button"
-            onClick={() => handleNavigation("/goal-result")}
+            onClick={() => headerHandleNavigation("/goal-result")}
           >
             <ListItemText primary="目標達成確認" />
           </ListItem>
           <ListItem
             component="button"
-            onClick={() => handleNavigation("/help")}
+            onClick={() => headerHandleNavigation("/help")}
           >
             <ListItemText primary="使い方" />
           </ListItem>

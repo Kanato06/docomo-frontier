@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import Header from "../components/Header"; // Headerをインポート
+import Header from "../components/Header";
+import { useHandleNavigation } from "../components/navigation";
 import {
   TextField,
   Button,
@@ -17,6 +18,8 @@ import { generateClient } from "aws-amplify/data";
 const client = generateClient<Schema>();
 
 const GoalSettingPage: React.FC = () => {
+  const handleNavigation = useHandleNavigation();
+
   const [goal, setGoal] = useState<string>("");
   const [amazonLink1, setAmazonLink1] = useState<string>("");
   const [money1, setMoney1] = useState<string>("");
@@ -47,7 +50,9 @@ const GoalSettingPage: React.FC = () => {
       money2: parseInt(money2),
       goalDate: deadline ? deadline.format("YYYY-MM-DD") : null,
     };
-    client.models.GoalForTwoUsers.create(data);
+    await client.models.GoalForTwoUsers.create(data);
+
+    handleNavigation("/goal-result");
   };
 
   const renderAmazonFields = (person: number) => (
@@ -136,11 +141,16 @@ const GoalSettingPage: React.FC = () => {
                   variant="contained"
                   color="primary"
                   onClick={handleSubmit}
-                  fullWidth
-                  size="large"
-                  sx={{ mt: 2 }}
+                  sx={{
+                    mt: 2,
+                    mb: 2,
+                    width: "200px",
+                    display: "block",
+                    mx: "auto",
+                    fontSize: "1.5rem",
+                  }}
                 >
-                  目標達成を報告する
+                  決済
                 </Button>
               </Grid>
             </Grid>

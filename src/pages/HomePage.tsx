@@ -1,17 +1,11 @@
 import React from "react";
 import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useHandleNavigation } from "../components/navigation";
 import { Typography, Box, Container, Button, Paper } from "@mui/material";
 import personImage from "../assets/11383_color.png";
 
 const HomePage: React.FC = () => {
-  const navigate = useNavigate();
-
-  // ページ遷移を行う関数
-  const handleNavigation = (path: string) => {
-    navigate(path);
-  };
-
+  const handleNavigation = useHandleNavigation();
   // メインコンテンツ
   const renderMainContent = () => (
     <Paper
