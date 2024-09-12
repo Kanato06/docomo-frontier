@@ -1,12 +1,11 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import Header from "../components/Header";
 import { useHandleNavigation } from "../components/navigation";
+import CommonLayout from "../components/CommonLayout"; // CommonLayoutをインポート
 import {
   Button,
   Box,
   Typography,
-  Container,
-  Paper,
   Input,
   Grid,
   Card,
@@ -14,6 +13,7 @@ import {
   Chip,
   Divider,
   LinearProgress,
+  Paper,
 } from "@mui/material";
 import type { Schema } from "../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
@@ -90,64 +90,55 @@ export default function GoalResultPage() {
 
   // バックエンドから目標データを取得
   useEffect(() => {
-    client.models.GoalForTwoUsers.observeQuery().subscribe({
-      next: (data) => setGoalForTwoUsers([...data.items]),
-    });
-    console.log(goalForTwoUsers);
+    const subscription = client.models.GoalForTwoUsers.observeQuery().subscribe(
+      {
+        next: (data) => {
+          setGoalForTwoUsers([...data.items]);
+        },
+      }
+    );
+
+    // クリーンアップ関数
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, []);
+
+  // 取得したデータを処理してユーザー目標情報を設定
+  useEffect(() => {
     const filteredGoals = goalForTwoUsers.filter((goal) => goal.goalId != null);
-    console.log("filteredGoals");
-    console.log(filteredGoals);
     const maxGoalId = Math.max(...filteredGoals.map((goal) => goal.goalId!));
-    console.log("maxGoalId");
-    console.log(maxGoalId);
     const maxGoalElement = filteredGoals.find(
       (goal) => goal.goalId === maxGoalId
     );
-    console.log("maxGoalElement");
-    console.log(maxGoalElement);
 
-    const tmpgoal = maxGoalElement?.goal ?? "";
-    const tmpreward1 = maxGoalElement?.reward1 ?? "";
-    const tmpmoney1 = maxGoalElement?.money1 ?? 0;
-    const tmpreward2 = maxGoalElement?.reward2 ?? "";
-    const tmpmoney2 = maxGoalElement?.money2 ?? 0;
-    const tmpgoalDate = maxGoalElement?.goalDate ?? "";
+    if (maxGoalElement) {
+      const tmpgoal = maxGoalElement?.goal ?? "";
+      const tmpreward1 = maxGoalElement?.reward1 ?? "";
+      const tmpmoney1 = maxGoalElement?.money1 ?? 0;
+      const tmpreward2 = maxGoalElement?.reward2 ?? "";
+      const tmpmoney2 = maxGoalElement?.money2 ?? 0;
+      const tmpgoalDate = maxGoalElement?.goalDate ?? "";
 
-    const data: UserGoal[] = [
-      {
-        goal: tmpgoal ?? "",
-        reward: tmpreward1 ?? "",
-        amount: tmpmoney1 ?? 0,
-        status: "審査中",
-        deadline: tmpgoalDate ?? "",
-      },
-      {
-        goal: tmpgoal ?? "",
-        reward: tmpreward2 ?? "",
-        amount: tmpmoney2 ?? 0,
-        status: "審査中",
-        deadline: tmpgoalDate ?? "",
-      },
-    ];
+      const data: UserGoal[] = [
+        {
+          goal: tmpgoal,
+          reward: tmpreward1,
+          amount: tmpmoney1,
+          status: "審査中",
+          deadline: tmpgoalDate,
+        },
+        {
+          goal: tmpgoal,
+          reward: tmpreward2,
+          amount: tmpmoney2,
+          status: "審査中",
+          deadline: tmpgoalDate,
+        },
+      ];
 
-    // const data: UserGoal[] = [
-    //     {
-    //         goal: "英検一級",
-    //         reward: "バッグ",
-    //         amount: 30000,
-    //         status: "審査中",
-    //         deadline: "2022-12-31",
-    //     },
-    //     {
-    //         goal: "英検一級",
-    //         reward: "香水",
-    //         amount: 2000,
-    //         status: "審査中",
-    //         deadline: "2022-12-31",
-    //     },
-    // ];
-
-    setUserGoals(data);
+      setUserGoals(data);
+    }
   }, [goalForTwoUsers]);
 
   // ユーザーの目標情報を表示
@@ -283,46 +274,34 @@ export default function GoalResultPage() {
   return (
     <>
       <Header />
-
-      <Container maxWidth="md">
-        <Box my={4}>
-          <Paper
-            elevation={3}
-            sx={{
-              p: 4,
-              background: "linear-gradient(180deg, #EEF2FF 0%, #E0E7FF 100%)",
-              borderRadius: 2,
-              minHeight: "100vh",
-            }}
-          >
-            <Typography
-              variant="h4"
-              component="h1"
-              gutterBottom
-              align="center"
-              color="primary"
-              sx={{ mb: 4 }}
-            >
-              目標の進捗状況
-            </Typography>
-            {renderUserGoals()}
-            <Divider sx={{ my: 4 }} />
-            {renderImageUpload()}
-            {renderAuditResult()}
-            <Button
-              variant="contained"
-              color="primary"
-              fullWidth
-              startIcon={<ArrowBackIcon />}
-              onClick={() => handleNavigation("/goal-setting")}
-              size="large"
-              sx={{ mt: 2 }}
-            >
-              目標設定ページに戻る
-            </Button>
-          </Paper>
-        </Box>
-      </Container>
+      <Box sx={{ mt: 5 }}></Box>
+      <CommonLayout>
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          align="center"
+          color="primary"
+          sx={{ mb: 4 }}
+        >
+          目標の進捗状況
+        </Typography>
+        {renderUserGoals()}
+        <Divider sx={{ my: 4 }} />
+        {renderImageUpload()}
+        {renderAuditResult()}
+        <Button
+          variant="contained"
+          color="primary"
+          fullWidth
+          startIcon={<ArrowBackIcon />}
+          onClick={() => handleNavigation("/goal-setting")}
+          size="large"
+          sx={{ mt: 2 }}
+        >
+          目標設定ページに戻る
+        </Button>
+      </CommonLayout>
     </>
   );
 }
