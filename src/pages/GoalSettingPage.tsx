@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Header from "../components/Header";
-import CommonLayout from "../components/CommonLayout"; // CommonLayoutをインポート
+import CommonLayout from "../components/CommonLayout";
 import { useHandleNavigation } from "../components/navigation";
-import { TextField, Button, Typography, Grid, Box } from "@mui/material";
+import { TextField, Button, Typography, Grid, Box, Alert } from "@mui/material";
 import { LocalizationProvider, DatePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { Dayjs } from "dayjs";
@@ -15,11 +15,12 @@ const GoalSettingPage: React.FC = () => {
 
   const [goal, setGoal] = useState<string>("");
   const [amazonLink1, setAmazonLink1] = useState<string>("");
-  const [money1, setMoney1] = useState<string>("");
+  const [money1, setMoney1] = useState<number | "">("");
   const [amazonLink2, setAmazonLink2] = useState<string>("");
-  const [money2, setMoney2] = useState<string>("");
+  const [money2, setMoney2] = useState<number | "">("");
   const [deadline, setDeadline] = useState<Dayjs | null>(null);
   const [goalId, setGoalId] = useState<number>(0);
+  const [errors, setErrors] = useState<{ [key: string]: string }>({});
 
   useEffect(() => {
     const storedGoalId = localStorage.getItem("goalId");
@@ -28,19 +29,43 @@ const GoalSettingPage: React.FC = () => {
     }
   }, []);
 
+  const validateForm = () => {
+    const newErrors: { [key: string]: string } = {};
+
+    if (!goal) newErrors.goal = "目標を入力してください";
+    if (!amazonLink1)
+      newErrors.amazonLink1 = "ご褒美のリンクを入力してください";
+    if (!money1 || isNaN(money1))
+      newErrors.money1 = "金額を正しく入力してください";
+    if (!amazonLink2)
+      newErrors.amazonLink2 = "2人目のご褒美のリンクを入力してください";
+    if (!money2 || isNaN(money2))
+      newErrors.money2 = "2人目の金額を正しく入力してください";
+    if (!deadline) newErrors.deadline = "期限を選択してください";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleSubmit = async () => {
+    if (!validateForm()) {
+      return;
+    }
+
     setGoalId((prevGoalId) => {
       const newGoalId = prevGoalId + 1;
       localStorage.setItem("goalId", newGoalId.toString());
       return newGoalId;
     });
+
     const data = {
       goalId: goalId,
       goal: goal,
       reward1: amazonLink1,
-      money1: parseInt(money1),
+      money1: money1 as number,
       reward2: amazonLink2,
-      money2: parseInt(money2),
+      money2: money2 as number,
       goalDate: deadline ? deadline.format("YYYY-MM-DD") : null,
     };
     await client.models.GoalForTwoUsers.create(data);
@@ -64,28 +89,32 @@ const GoalSettingPage: React.FC = () => {
         }
         variant="outlined"
         margin="normal"
+        error={Boolean(errors[`amazonLink${person}`])}
+        helperText={errors[`amazonLink${person}`]}
       />
       <TextField
         fullWidth
         label="金額を入力"
         value={person === 1 ? money1 : money2}
         onChange={(e) =>
-          person === 1 ? setMoney1(e.target.value) : setMoney2(e.target.value)
+          person === 1
+            ? setMoney1(Number(e.target.value))
+            : setMoney2(Number(e.target.value))
         }
-        type="number"
+        type="number" // 数字のみを入力できるようにする
         variant="outlined"
         margin="normal"
+        error={Boolean(errors[`money${person}`])}
+        helperText={errors[`money${person}`]}
       />
     </Grid>
   );
 
   return (
     <>
-      {/* Headerを挿入 */}
       <Header />
       <Box sx={{ mt: 5 }}></Box>
 
-      {/* CommonLayoutで囲む */}
       <CommonLayout>
         <Typography
           variant="h4"
@@ -104,6 +133,8 @@ const GoalSettingPage: React.FC = () => {
               value={goal}
               onChange={(e) => setGoal(e.target.value)}
               variant="outlined"
+              error={Boolean(errors.goal)}
+              helperText={errors.goal}
             />
           </Grid>
           {[1, 2].map((person) => renderAmazonFields(person))}
@@ -127,6 +158,9 @@ const GoalSettingPage: React.FC = () => {
                 }}
               />
             </LocalizationProvider>
+            {errors.deadline && (
+              <Alert severity="error">{errors.deadline}</Alert>
+            )}
           </Grid>
           <Grid item xs={12}>
             <Button
