@@ -1,25 +1,24 @@
-## AWS Amplify React+Vite Starter Template
+# Docomo ハッカソン 2024
 
-This repository provides a starter template for creating applications using React+Vite and AWS Amplify, emphasizing easy setup for authentication, API, and database capabilities.
+## これは何
 
-## Overview
+Docomoハッカソンで使うベースアプリケーションのリポジトリ
 
-This template equips you with a foundational React application integrated with AWS Amplify, streamlined for scalability and performance. It is ideal for developers looking to jumpstart their project with pre-configured AWS services like Cognito, AppSync, and DynamoDB.
+## プロジェクトの開始
 
-## Features
+本レポジトリはAmplify DocsのQuickstart（React）を参考にして作成しています。（下記の環境構築な説明で不明な場合はドキュメントを参照ください。）
 
-- **Authentication**: Setup with Amazon Cognito for secure user authentication.
-- **API**: Ready-to-use GraphQL endpoint with AWS AppSync.
-- **Database**: Real-time database powered by Amazon DynamoDB.
+https://docs.amplify.aws/react/start/quickstart/
 
-## Deploying to AWS
+## 環境構築
 
-For detailed instructions on deploying your application, refer to the [deployment section](https://docs.amplify.aws/react/start/quickstart/#deploy-a-fullstack-app-to-aws) of our documentation.
+AWSのアカウントにログイン後、リンクにアクセス
 
-## Security
+https://ap-northeast-1.console.aws.amazon.com/amplify/apps/d32eihk3oqeasd/branches/main/deployments
 
-See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
+<img width="701" alt="image" src="https://github.com/user-attachments/assets/63d8c649-eb8d-46a2-9410-6f8b6a594c09">
 
-## License
 
-This library is licensed under the MIT-0 License. See the LICENSE file.
+
+
+
