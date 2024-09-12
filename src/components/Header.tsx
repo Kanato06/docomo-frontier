@@ -63,6 +63,12 @@ const Header: React.FC = () => {
           >
             <ListItemText primary="目標達成確認" />
           </ListItem>
+          <ListItem
+            component="button"
+            onClick={() => handleNavigation("/help")}
+          >
+            <ListItemText primary="使い方" />
+          </ListItem>
         </List>
       </Drawer>
     </>
