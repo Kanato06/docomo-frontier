@@ -1,6 +1,3 @@
-// import { useEffect, useState } from "react";
-// import type { Schema } from "../amplify/data/resource";
-// import { generateClient } from "aws-amplify/data";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { ThemeProvider, createTheme } from "@mui/material";
 import GoalSettingPage from "./pages/GoalSettingPage";
@@ -25,22 +22,6 @@ const theme = createTheme({
 });
 
 function App() {
-  // const [goalForTwoUsers, setUser] = useState<Array<Schema["GoalForTwoUsers"]["type"]>>([]);
-
-  // useEffect(() => {
-  //   client.models.GoalForTwoUsers.observeQuery().subscribe({
-  //     next: (data) => setUser([...data.items]),
-  //   });
-  // }, []);
-
-  // function createUser() {
-  //   client.models.User.create({
-  //     name: "myname",
-  //     email: "myemail",
-  //     createdAt: 2024
-  //   });
-  // }
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
