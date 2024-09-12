@@ -27,17 +27,10 @@ const GoalSettingPage: React.FC = () => {
   const [amazonLink2, setAmazonLink2] = useState<string>("");
   const [money2, setMoney2] = useState<number | "">("");
   const [deadline, setDeadline] = useState<Dayjs | null>(null);
-  const [goalId, setGoalId] = useState<number>(0);
   const [errors, setErrors] = useState<{ [key: string]: string }>({});
   const [showSnackbar, setShowSnackbar] = useState<boolean>(false); // Snackbar表示用のstate
 
-  useEffect(() => {
-    const storedGoalId = localStorage.getItem("goalId");
-    if (storedGoalId) {
-      setGoalId(parseInt(storedGoalId, 10));
-    }
-  }, []);
-
+  // フォームのバリデーション処理
   const validateForm = () => {
     const newErrors: { [key: string]: string } = {};
 
@@ -68,19 +61,13 @@ const GoalSettingPage: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
+  // フォーム送信処理
   const handleSubmit = async () => {
     if (!validateForm()) {
       return;
     }
 
-    setGoalId((prevGoalId) => {
-      const newGoalId = prevGoalId + 1;
-      localStorage.setItem("goalId", newGoalId.toString());
-      return newGoalId;
-    });
-
     const data = {
-      goalId: goalId,
       goal: goal,
       reward1: amazonLink1,
       money1: money1 as number,
@@ -88,11 +75,14 @@ const GoalSettingPage: React.FC = () => {
       money2: money2 as number,
       goalDate: deadline ? deadline.format("YYYY-MM-DD") : null,
     };
+
+    // データ送信処理
     await client.models.GoalForTwoUsers.create(data);
 
     handleNavigation("/goal-result");
   };
 
+  // ご褒美フィールドの描画
   const renderAmazonFields = (person: number) => (
     <Grid item xs={12} key={person}>
       <Typography variant="h6" gutterBottom color="secondary.dark">
