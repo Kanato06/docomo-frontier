@@ -1,24 +1,34 @@
-import React, { useState, useEffect, ChangeEvent } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { 
-  Button, Box, Typography, Container, Paper, Input, IconButton, Grid, 
-  Card, CardContent, Chip, Divider, LinearProgress
-} from '@mui/material';
-import { 
-  ArrowBack as ArrowBackIcon, 
-  CloudUpload as CloudUploadIcon, 
-  AccessTime as AccessTimeIcon, 
-  CheckCircle as CheckCircleIcon, 
+import { useState, useEffect, ChangeEvent } from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  Button,
+  Box,
+  Typography,
+  Container,
+  Paper,
+  Input,
+  Grid,
+  Card,
+  CardContent,
+  Chip,
+  Divider,
+  LinearProgress,
+} from "@mui/material";
+import {
+  ArrowBack as ArrowBackIcon,
+  CloudUpload as CloudUploadIcon,
+  AccessTime as AccessTimeIcon,
+  CheckCircle as CheckCircleIcon,
   Cancel as CancelIcon,
   EmojiEvents as EmojiEventsIcon,
-  CalendarToday as CalendarTodayIcon
-} from '@mui/icons-material';
+  CalendarToday as CalendarTodayIcon,
+} from "@mui/icons-material";
 
 // 審査ステータスの型を定義
 enum AuditStatus {
-  PENDING = '審査中',
-  SUCCESS = '目標達成',
-  FAILURE = '失敗'
+  PENDING = "審査中",
+  SUCCESS = "目標達成",
+  FAILURE = "失敗",
 }
 
 // ユーザー目標のインターフェース
@@ -33,7 +43,9 @@ interface UserGoal {
 export default function GoalResultPage() {
   const navigate = useNavigate();
   const [image, setImage] = useState<File | null>(null);
-  const [auditStatus, setAuditStatus] = useState<AuditStatus>(AuditStatus.PENDING);
+  const [auditStatus, setAuditStatus] = useState<AuditStatus>(
+    AuditStatus.PENDING
+  );
   const [userGoals, setUserGoals] = useState<UserGoal[]>([]);
 
   // 画像アップロードハンドラ
@@ -49,26 +61,38 @@ export default function GoalResultPage() {
   const getStatusIcon = (status: AuditStatus) => {
     switch (status) {
       case AuditStatus.PENDING:
-        return <AccessTimeIcon sx={{ fontSize: 48, color: '#FCD34D' }} />;
+        return <AccessTimeIcon sx={{ fontSize: 48, color: "#FCD34D" }} />;
       case AuditStatus.SUCCESS:
-        return <CheckCircleIcon sx={{ fontSize: 48, color: '#10B981' }} />;
+        return <CheckCircleIcon sx={{ fontSize: 48, color: "#10B981" }} />;
       case AuditStatus.FAILURE:
-        return <CancelIcon sx={{ fontSize: 48, color: '#EF4444' }} />;
+        return <CancelIcon sx={{ fontSize: 48, color: "#EF4444" }} />;
       default:
         return null;
     }
   };
 
   // 戻るボタンのハンドラ
-  const handleGoBack = () => navigate('/');
+  const handleGoBack = () => navigate("/");
 
   // バックエンドから目標データを取得
   useEffect(() => {
     const fetchData = async () => {
       // APIからデータを取得する部分（ダミーデータとして設定）
       const data: UserGoal[] = [
-        { goal: '体重60キロ以下', reward: '新しいPC', amount: 100000, status: '審査中', deadline: '2024-12-31' },
-        { goal: '体重60キロ以下', reward: '高級ディナー', amount: 20000, status: '審査中', deadline: '2024-12-31' },
+        {
+          goal: "体重60キロ以下",
+          reward: "新しいPC",
+          amount: 100000,
+          status: "審査中",
+          deadline: "2024-12-31",
+        },
+        {
+          goal: "体重60キロ以下",
+          reward: "高級ディナー",
+          amount: 20000,
+          status: "審査中",
+          deadline: "2024-12-31",
+        },
       ];
       setUserGoals(data);
     };
@@ -86,38 +110,52 @@ export default function GoalResultPage() {
             </Typography>
             <Grid container spacing={2}>
               <Grid item xs={12}>
-                <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                  <EmojiEventsIcon sx={{ mr: 1, color: 'primary.main' }} />
+                <Typography
+                  variant="body1"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <EmojiEventsIcon sx={{ mr: 1, color: "primary.main" }} />
                   <strong>目標:</strong> {userGoal.goal}
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                  <CloudUploadIcon sx={{ mr: 1, color: 'secondary.main' }} />
-                  <strong>ご褒美:</strong> {userGoal.reward} 
-                  <Chip 
-                    label={`${userGoal.amount.toLocaleString()}円`} 
-                    size="small" 
-                    color="secondary" 
+                <Typography
+                  variant="body1"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <CloudUploadIcon sx={{ mr: 1, color: "secondary.main" }} />
+                  <strong>ご褒美:</strong> {userGoal.reward}
+                  <Chip
+                    label={`${userGoal.amount.toLocaleString()}円`}
+                    size="small"
+                    color="secondary"
                     sx={{ ml: 1 }}
                   />
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                  <CheckCircleIcon sx={{ mr: 1, color: 'success.main' }} />
-                  <strong>審査状況:</strong> 
-                  <Chip 
-                    label={userGoal.status} 
-                    size="small" 
-                    color={userGoal.status === '目標達成' ? 'success' : 'warning'} 
+                <Typography
+                  variant="body1"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <CheckCircleIcon sx={{ mr: 1, color: "success.main" }} />
+                  <strong>審査状況:</strong>
+                  <Chip
+                    label={userGoal.status}
+                    size="small"
+                    color={
+                      userGoal.status === "目標達成" ? "success" : "warning"
+                    }
                     sx={{ ml: 1 }}
                   />
                 </Typography>
               </Grid>
               <Grid item xs={12}>
-                <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center' }}>
-                  <CalendarTodayIcon sx={{ mr: 1, color: 'info.main' }} />
+                <Typography
+                  variant="body1"
+                  sx={{ display: "flex", alignItems: "center" }}
+                >
+                  <CalendarTodayIcon sx={{ mr: 1, color: "info.main" }} />
                   <strong>達成期限:</strong> {userGoal.deadline}
                 </Typography>
               </Grid>
@@ -131,7 +169,12 @@ export default function GoalResultPage() {
   // 画像アップロードフォーム
   const renderImageUpload = () => (
     <Box my={3}>
-      <Typography variant="h5" gutterBottom color="primary" sx={{ textAlign: 'center' }}>
+      <Typography
+        variant="h5"
+        gutterBottom
+        color="primary"
+        sx={{ textAlign: "center" }}
+      >
         目標達成の証明画像
       </Typography>
       <Paper variant="outlined" sx={{ p: 2, borderRadius: 2 }}>
@@ -140,8 +183,8 @@ export default function GoalResultPage() {
           onChange={handleImageUpload}
           disableUnderline
           fullWidth
-          inputProps={{ accept: 'image/*' }}
-          sx={{ display: 'none' }}
+          inputProps={{ accept: "image/*" }}
+          sx={{ display: "none" }}
           id="image-upload-input"
         />
         <label htmlFor="image-upload-input">
@@ -169,14 +212,17 @@ export default function GoalResultPage() {
       <Typography variant="h5" gutterBottom color="primary">
         審査結果
       </Typography>
-      <Paper elevation={3} sx={{ p: 3, borderRadius: 2, background: '#F3F4F6' }}>
+      <Paper
+        elevation={3}
+        sx={{ p: 3, borderRadius: 2, background: "#F3F4F6" }}
+      >
         {getStatusIcon(auditStatus)}
         <Typography variant="h6" color="textSecondary" sx={{ mt: 2 }}>
           {auditStatus}
         </Typography>
-        <LinearProgress 
-          variant="determinate" 
-          value={auditStatus === AuditStatus.SUCCESS ? 100 : 50} 
+        <LinearProgress
+          variant="determinate"
+          value={auditStatus === AuditStatus.SUCCESS ? 100 : 50}
           sx={{ mt: 2 }}
         />
       </Paper>
@@ -186,8 +232,23 @@ export default function GoalResultPage() {
   return (
     <Container maxWidth="md">
       <Box my={4}>
-        <Paper elevation={3} sx={{ p: 4, background: 'linear-gradient(180deg, #EEF2FF 0%, #E0E7FF 100%)', borderRadius: 2, minHeight: '100vh' }}>
-          <Typography variant="h4" component="h1" gutterBottom align="center" color="primary" sx={{ mb: 4 }}>
+        <Paper
+          elevation={3}
+          sx={{
+            p: 4,
+            background: "linear-gradient(180deg, #EEF2FF 0%, #E0E7FF 100%)",
+            borderRadius: 2,
+            minHeight: "100vh",
+          }}
+        >
+          <Typography
+            variant="h4"
+            component="h1"
+            gutterBottom
+            align="center"
+            color="primary"
+            sx={{ mb: 4 }}
+          >
             目標の進捗状況
           </Typography>
           {renderUserGoals()}
