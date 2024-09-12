@@ -2,7 +2,7 @@ import { useState, useEffect, ChangeEvent } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Box, Typography, Container, Paper, Input, Grid, Card, CardContent, Chip, Divider, LinearProgress } from "@mui/material";
 import type { Schema } from "../../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
+
 
 import {
     ArrowBack as ArrowBackIcon,
@@ -29,7 +29,6 @@ interface UserGoal {
     status: string;
     deadline: string;
 }
-
 
 export default function GoalResultPage() {
     const navigate = useNavigate();
@@ -88,6 +87,7 @@ export default function GoalResultPage() {
             }
             return max;
         });
+        setGoalForTwoUsers([maxGoalElement]);
 
         const tmpgoal = maxGoalElement.goal;
         const tmpreward1 = maxGoalElement.reward1;
@@ -115,7 +115,6 @@ export default function GoalResultPage() {
                 },
             ];
             setUserGoals(data);
-
         };
         fetchData();
     }, []);
