@@ -1,27 +1,30 @@
 // import { useEffect, useState } from "react";
 // import type { Schema } from "../amplify/data/resource";
 // import { generateClient } from "aws-amplify/data";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material";
 import GoalSettingPage from "./pages/GoalSettingPage";
 import GoalResultPage from "./pages/GoalResultPage";
-import HomePage from './pages/HomePage';  // ホームページをインポート
-import HelpPage from './pages/HelpPage';
+import HomePage from "./pages/HomePage"; // ホームページをインポート
+import HelpPage from "./pages/HelpPage";
 
 // テーマを作成
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6366F1',
+      main: "#6366F1", // プライマリカラー
     },
     secondary: {
-      main: '#A78BFA',
+      main: "#A78BFA", // セカンダリカラー
+    },
+    background: {
+      default: "#EEF2FF", // 全体の背景色
+      paper: "#ffffff", // Paperコンポーネントの背景色
     },
   },
 });
 
 function App() {
-
   // const [goalForTwoUsers, setUser] = useState<Array<Schema["GoalForTwoUsers"]["type"]>>([]);
 
   // useEffect(() => {
@@ -46,7 +49,7 @@ function App() {
           <Route path="/" element={<HomePage />} />
 
           {/* 目標設定ページ */}
-          <Route path="/goal-setting" element={<GoalSettingPage/>} />
+          <Route path="/goal-setting" element={<GoalSettingPage />} />
 
           {/* 目標達成確認ページ */}
           <Route path="/goal-result" element={<GoalResultPage />} />
