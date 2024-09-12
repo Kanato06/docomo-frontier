@@ -49,7 +49,7 @@ const GoalSettingPage: React.FC = () => {
             </Typography>
             <TextField
                 fullWidth
-                label="Amazonのリンクを入力"
+                label="ご褒美に欲しいものを入力"
                 value={person === 1 ? amazonLink1 : amazonLink2}
                 onChange={(e) => person === 1 ? setAmazonLink1(e.target.value) : setAmazonLink2(e.target.value)}
                 variant="outlined"
@@ -57,7 +57,7 @@ const GoalSettingPage: React.FC = () => {
             />
             <TextField
                 fullWidth
-                label="お金を入力"
+                label="金額を入力"
                 value={person === 1 ? money1 : money2}
                 onChange={(e) => person === 1 ? setMoney1(e.target.value) : setMoney2(e.target.value)}
                 type="number"

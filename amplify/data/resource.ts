@@ -13,21 +13,20 @@ const schema = a.schema({
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
-  User: a
-    .model({
-      name: a.string(),
-      email: a.string(),
-    })
-    .authorization((allow) => [allow.publicApiKey()]),
+  // User: a
+  //   .model({
+  //     name: a.string(),
+  //     email: a.string(),
+  //   })
+  //   .authorization((allow) => [allow.publicApiKey()]),
 
-
-  Document: a
-    .model({
-      goalId: a.string(),
-      status1: a.string(),
-      status2: a.string(),
-    })
-    .authorization((allow) => [allow.publicApiKey()]),
+  // Document: a
+  //   .model({
+  //     goalId: a.string(),
+  //     status1: a.string(),
+  //     status2: a.string(),
+  //   })
+  //   .authorization((allow) => [allow.publicApiKey()]),
 
   // Goal: a
   //   .model({
