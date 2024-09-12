@@ -1,6 +1,6 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import Header from "../components/Header";
-import { useNavigate } from "react-router-dom";
+import { useHandleNavigation } from "../components/navigation";
 import {
   Button,
   Box,
@@ -46,7 +46,7 @@ interface UserGoal {
 }
 
 export default function GoalResultPage() {
-  const navigate = useNavigate();
+  const handleNavigation = useHandleNavigation();
   const [image, setImage] = useState<File | null>(null);
   const [auditStatus, setAuditStatus] = useState<AuditStatus>(
     AuditStatus.PENDING
@@ -84,9 +84,6 @@ export default function GoalResultPage() {
     }
   };
 
-  // 戻るボタンのハンドラ
-  const handleGoBack = () => navigate("/");
-
   const [goalForTwoUsers, setGoalForTwoUsers] = useState<
     Array<Schema["GoalForTwoUsers"]["type"]>
   >([]);
@@ -103,7 +100,7 @@ export default function GoalResultPage() {
     const maxGoalId = Math.max(...filteredGoals.map((goal) => goal.goalId!));
     console.log("maxGoalId");
     console.log(maxGoalId);
-    let maxGoalElement = filteredGoals.find(
+    const maxGoalElement = filteredGoals.find(
       (goal) => goal.goalId === maxGoalId
     );
     console.log("maxGoalElement");
@@ -317,7 +314,7 @@ export default function GoalResultPage() {
               color="primary"
               fullWidth
               startIcon={<ArrowBackIcon />}
-              onClick={handleGoBack}
+              onClick={() => handleNavigation("/goal-setting")}
               size="large"
               sx={{ mt: 2 }}
             >
