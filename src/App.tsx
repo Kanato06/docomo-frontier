@@ -5,25 +5,34 @@ import { generateClient } from "aws-amplify/data";
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
-
   useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
+    client.models.User.observeQuery().subscribe({
+      next: (data) => setUser([...data.items]),
     });
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+  const [user, setUser] = useState<Array<Schema["User"]["type"]>>([]);
+  const [goal, setGoal] = useState<Array<Schema["Goal"]["type"]>>([]);
+  const [document, setDocument] = useState<Array<Schema["Document"]["type"]>>([]);
+  const [result, setResult] = useState<Array<Schema["Result"]["type"]>>([]);
+
+  function createUser() {
+    client.models.User.create({
+      // content: window.prompt("Todo content")
+      name: "myname",
+      email: "myemail",
+      password: "mypassword",
+      createdAt: 2024
+    });
   }
 
   return (
     <main>
-      <h1>hoge</h1>
-      <button onClick={createTodo}>+ new</button>
+      <h1>My todos</h1>
+      <button onClick={createUser}>+ new</button>
       <ul>
-        {todos.map((todo) => (
-          <li key={todo.id}>{todo.content}</li>
+        {user.map((user) => (
+          <li key={user.id}>{user.name}</li>
         ))}
       </ul>
       <div>
