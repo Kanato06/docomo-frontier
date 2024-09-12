@@ -2,15 +2,7 @@
 
 import React, { useState, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {
-    Button,
-    Box,
-    Typography,
-    Container,
-    Paper,
-    Input,
-    IconButton
-} from '@mui/material';
+import { Button, Box, Typography, Container, Paper, Input, IconButton } from '@mui/material';
 import {
     ArrowBack as ArrowBackIcon,
     CloudUpload as CloudUploadIcon,
@@ -36,9 +28,12 @@ const GoalResultPage: React.FC = () => {
         const file = event.target.files ? event.target.files[0] : null;
         // setImage(file);
         if (file) {
+            setAuditStatus(AuditStatus.PENDING);
             // 画像アップロード処理を追加
             // ここでバックエンドと通信して審査ステータスを更新
-            setAuditStatus(AuditStatus.SUCCESS);
+            setTimeout(() => {
+                setAuditStatus(AuditStatus.SUCCESS);
+            }, 3000);
         }
     };
 

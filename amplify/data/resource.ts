@@ -3,13 +3,13 @@ import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 const schema = a.schema({
   GoalForTwoUsers: a
     .model({
+      goalId: a.integer(),
       goal: a.string(),
       reward1: a.string(),
       money1: a.integer(),
       reward2: a.string(),
       money2: a.integer(),
       goalDate: a.date(),
-      // createdAt: a.timestamp(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 
@@ -17,7 +17,15 @@ const schema = a.schema({
     .model({
       name: a.string(),
       email: a.string(),
-      // createdAt: a.timestamp(),
+    })
+    .authorization((allow) => [allow.publicApiKey()]),
+
+
+  Document: a
+    .model({
+      goalId: a.string(),
+      status1: a.string(),
+      status2: a.string(),
     })
     .authorization((allow) => [allow.publicApiKey()]),
 

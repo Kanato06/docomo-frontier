@@ -16,6 +16,7 @@ const GoalSettingPage: React.FC = () => {
     const [amazonLink2, setAmazonLink2] = useState<string>('');
     const [money2, setMoney2] = useState<string>('');
     const [deadline, setDeadline] = useState<Dayjs | null>(null);
+    const [goalId, setGoalId] = useState<number>(0); // 初期値は1
 
     // 目標が既に設定されている場合はリダイレクト
     useEffect(() => {
@@ -27,7 +28,9 @@ const GoalSettingPage: React.FC = () => {
 
     // フォームの送信処理
     const handleSubmit = async () => {
+        setGoalId((prevGoalId) => prevGoalId + 1);
         const data = {
+            goalId: goalId,
             goal: goal,
             reward1: amazonLink1,
             money1: parseInt(money1),
