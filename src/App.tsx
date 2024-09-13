@@ -3,7 +3,7 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import GoalSettingPage from "./pages/GoalSettingPage";
 import GoalResultPage from "./pages/GoalResultPage";
 import HomePage from "./pages/HomePage"; // ホームページをインポート
-import HelpPage from "./pages/loginPage";
+import HelpPage from "./pages/HelpPage";
 import LoginPage from "./pages/loginPage";
 
 // テーマを作成
