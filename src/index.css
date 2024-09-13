@@ -36,18 +36,15 @@ button:focus-visible {
 }
 
 ul {
-  padding-inline-start: 0;
-  margin-block-start: 0;
-  margin-block-end: 0;
+  padding: 0.5rem;
+  margin: 1rem 0;
   list-style-type: none;
   display: flex;
   flex-direction: column;
-  margin: 8px 0;
-  border: 1px solid black;
-  gap: 1px;
-  background-color: black;
-  border-radius: 8px;
-  overflow: auto;
+  background-color: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
 }
 
 li {
