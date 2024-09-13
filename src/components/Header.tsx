@@ -57,14 +57,27 @@ const Header: React.FC = () => {
       </Box>
 
       {/* Drawerの定義 */}
-      <Drawer anchor="left" open={drawerOpen} onClose={toggleDrawer(false)}>
+      <Drawer
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer(false)}
+        sx={{
+          "& .MuiDrawer-paper": {
+            backgroundColor: "white", // Drawerの背景色を白に設定
+          },
+        }}
+      >
         <List>
           <ListItem
             component="button"
             onClick={() => headerHandleNavigation("/goal-setting")}
             sx={{
-              color: "primary",
-              backgroundColor: "primary",
+              color: "white", // テキストの色
+              backgroundColor: "red", // 背景色を赤に設定
+              '&:hover': { // ホバー時の色変更
+                backgroundColor: "darkred",
+              },
+              marginBottom: 1, // アイテム間のスペースを少し追加
             }}
           >
             <ListItemText primary="目標設定" />
@@ -72,12 +85,27 @@ const Header: React.FC = () => {
           <ListItem
             component="button"
             onClick={() => headerHandleNavigation("/goal-result")}
+            sx={{
+              color: "white",
+              backgroundColor: "red",
+              '&:hover': {
+                backgroundColor: "darkred",
+              },
+              marginBottom: 1,
+            }}
           >
             <ListItemText primary="目標達成確認" />
           </ListItem>
           <ListItem
             component="button"
             onClick={() => headerHandleNavigation("/help")}
+            sx={{
+              color: "white",
+              backgroundColor: "red",
+              '&:hover': {
+                backgroundColor: "darkred",
+              },
+            }}
           >
             <ListItemText primary="使い方" />
           </ListItem>
