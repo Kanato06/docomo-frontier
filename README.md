@@ -4,6 +4,13 @@
 
 Docomoハッカソンで使うベースアプリケーションのリポジトリ
 
+## 開発したサービスのデモ動画
+
+
+https://github.com/user-attachments/assets/d394f5c4-8ea6-452e-883d-07041cec5435
+
+
+
 ## プロジェクトの開始
 
 本レポジトリはAmplify DocsのQuickstart（React）を参考にして作成しています。（下記の環境構築な説明で不明な場合はドキュメントを参照ください。）
