@@ -11,20 +11,14 @@ import {
     ListItemText,
     Box,
     Container,
-    Button,
-    Paper,
-    Grid
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 
-
-import manImage from '../assets/man.png';
 import goal from '../assets/goal-setting.png';
-import user from '../assets/user1&user2.png';
+import user from '../assets/user-setting.png';
 import date from '../assets/date.png';
-import result from '../assets/result3.png';
+import result from '../assets/result.png';
 
 const HelpPage: React.FC = () => {
     const [drawerOpen, setDrawerOpen] = useState(false);
