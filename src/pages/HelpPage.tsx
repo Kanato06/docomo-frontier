@@ -1,11 +1,39 @@
+
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import {
+//     AppBar,
+//     Toolbar,
+//     IconButton,
+//     Typography,
+//     Drawer,
+//     List,
+//     ListItem,
+//     ListItemText,
+//     Box,
+//     Container,
+// } from '@mui/material';
+// import MenuIcon from '@mui/icons-material/Menu';
+// import Card from '@mui/material/Card';
+
+// import goal from '../assets/goal-setting.png';
+// import user from '../assets/user-setting.png';
+// import date from '../assets/date.png';
+// import result from '../assets/result.png';
+
 import React from "react";
 import Header from "../components/Header";
 import CommonLayout from "../components/CommonLayout"; // CommonLayoutをインポート
 import { Typography, Box, Divider } from "@mui/material";
-import goal from "../assets/goal-setting.png";
-import user from "../assets/user1&user2.png";
-import date from "../assets/date.png";
-import result from "../assets/result3.png";
+import goal from '../assets/goal-setting.png';
+import user from '../assets/user-setting.png';
+import date from '../assets/date.png';
+import result from '../assets/result.png';
+// import goal from "../assets/goal-setting.png";
+// import user from "../assets/user1&user2.png";
+// import date from "../assets/date.png";
+// import result from "../assets/result3.png";
+
 
 const HelpPage: React.FC = () => {
   return (
@@ -55,7 +83,7 @@ const HelpPage: React.FC = () => {
           sx={{ textAlign: "center" }}
           my={1}
         >
-          目標挑戦者の名前、達成時のご褒美、
+          達成時のご褒美、
           <br />
           講座情報をそれぞれ入力してください
         </Typography>
