@@ -83,7 +83,7 @@ const HelpPage: React.FC = () => {
           sx={{ textAlign: "center" }}
           my={1}
         >
-          目標挑戦者の名前、達成時のご褒美、
+          達成時のご褒美、
           <br />
           講座情報をそれぞれ入力してください
         </Typography>
