@@ -22,7 +22,7 @@ const Header: React.FC = () => {
   const toggleDrawer = (open: boolean) => () => setDrawerOpen(open);
 
   // ページ遷移を行う関数
-  const handleNavigation = (path: string) => {
+  const headerHandleNavigation = (path: string) => {
     navigate(path);
     setDrawerOpen(false);
   };
@@ -41,7 +41,15 @@ const Header: React.FC = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                flexGrow: 1,
+                cursor: "pointer",
+              }}
+              onClick={() => navigate("/")}
+            >
               モチトモ
             </Typography>
           </Toolbar>
@@ -53,15 +61,25 @@ const Header: React.FC = () => {
         <List>
           <ListItem
             component="button"
-            onClick={() => handleNavigation("/goal-setting")}
+            onClick={() => headerHandleNavigation("/goal-setting")}
+            sx={{
+              color: "primary",
+              backgroundColor: "primary",
+            }}
           >
             <ListItemText primary="目標設定" />
           </ListItem>
           <ListItem
             component="button"
-            onClick={() => handleNavigation("/goal-result")}
+            onClick={() => headerHandleNavigation("/goal-result")}
           >
             <ListItemText primary="目標達成確認" />
+          </ListItem>
+          <ListItem
+            component="button"
+            onClick={() => headerHandleNavigation("/help")}
+          >
+            <ListItemText primary="使い方" />
           </ListItem>
         </List>
       </Drawer>

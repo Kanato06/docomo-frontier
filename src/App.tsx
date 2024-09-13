@@ -1,44 +1,29 @@
-// import { useEffect, useState } from "react";
-// import type { Schema } from "../amplify/data/resource";
-// import { generateClient } from "aws-amplify/data";
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import { ThemeProvider, createTheme } from "@mui/material";
 import GoalSettingPage from "./pages/GoalSettingPage";
 import GoalResultPage from "./pages/GoalResultPage";
-import HomePage from './pages/HomePage';  // ホームページをインポート
-import HelpPage from './pages/HelpPage';
-
-// const client = generateClient<Schema>();
+import HomePage from "./pages/HomePage"; // ホームページをインポート
+import HelpPage from "./pages/HelpPage";
+import SignupPage from "./pages/SignupPage";
 
 // テーマを作成
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#6366F1',
+      main: "#DC0000", // プライマリカラー
     },
     secondary: {
-      main: '#A78BFA',
+      main: "#FFDB89", // セカンダリカラー
+      dark: "#850000",
+    },
+    background: {
+      default: "#EEF2FF", // 全体の背景色
+      paper: "#ffffff", // Paperコンポーネントの背景色s
     },
   },
 });
 
 function App() {
-  // useEffect(() => {
-  //   client.models.User.observeQuery().subscribe({
-  //     next: (data) => setUser([...data.items]),
-  //   });
-  // }, []);
-
-  // const [user, setUser] = useState<Array<Schema["User"]["type"]>>([]);
-
-  // function createUser() {
-  //   client.models.User.create({
-  //     name: "myname",
-  //     email: "myemail",
-  //     createdAt: 2024
-  //   });
-  // }
-
   return (
     <ThemeProvider theme={theme}>
       <Router>
@@ -54,6 +39,9 @@ function App() {
 
           {/* ヘルプページ */}
           <Route path="/help" element={<HelpPage />} />
+
+          {/* ログイン */}
+          <Route path="/login" element={<SignupPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
