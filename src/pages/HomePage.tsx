@@ -34,7 +34,7 @@ const HomePage: React.FC = () => {
         <Button
           variant="contained"
           color="primary"
-          onClick={() => handleNavigation("/goal-setting")}
+          onClick={() => handleNavigation("/login")}
           sx={{ mt: 7, mb: 5, width: "200px", fontSize: "1.5rem" }}
         >
           目標登録

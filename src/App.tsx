@@ -3,7 +3,8 @@ import { ThemeProvider, createTheme } from "@mui/material";
 import GoalSettingPage from "./pages/GoalSettingPage";
 import GoalResultPage from "./pages/GoalResultPage";
 import HomePage from "./pages/HomePage"; // ホームページをインポート
-import HelpPage from "./pages/HelpPage";
+import HelpPage from "./pages/loginPage";
+import LoginPage from "./pages/loginPage";
 
 // テーマを作成
 const theme = createTheme({
@@ -38,6 +39,9 @@ function App() {
 
           {/* ヘルプページ */}
           <Route path="/help" element={<HelpPage />} />
+
+          {/* ログイン */}
+          <Route path="/login" element={<LoginPage />} />
         </Routes>
       </Router>
     </ThemeProvider>
