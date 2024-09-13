@@ -4,7 +4,7 @@ import GoalSettingPage from "./pages/GoalSettingPage";
 import GoalResultPage from "./pages/GoalResultPage";
 import HomePage from "./pages/HomePage"; // ホームページをインポート
 import HelpPage from "./pages/HelpPage";
-import LoginPage from "./pages/loginPage";
+import SignupPage from "./pages/SignupPage";
 
 // テーマを作成
 const theme = createTheme({
@@ -18,7 +18,7 @@ const theme = createTheme({
     },
     background: {
       default: "#EEF2FF", // 全体の背景色
-      paper: "#ffffff", // Paperコンポーネントの背景色
+      paper: "#ffffff", // Paperコンポーネントの背景色s
     },
   },
 });
@@ -41,7 +41,7 @@ function App() {
           <Route path="/help" element={<HelpPage />} />
 
           {/* ログイン */}
-          <Route path="/login" element={<LoginPage />} />
+          <Route path="/login" element={<SignupPage />} />
         </Routes>
       </Router>
     </ThemeProvider>

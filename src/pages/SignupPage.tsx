@@ -4,7 +4,7 @@ import { Box } from "@mui/material";
 import "@aws-amplify/ui-react/styles.css";
 import { useHandleNavigation } from "../components/navigation";
 
-const LoginPage: React.FC = () => {
+const SignupPage: React.FC = () => {
   const handleNavigation = useHandleNavigation();
   return (
     <>
@@ -29,4 +29,4 @@ const LoginPage: React.FC = () => {
   );
 };
 
-export default LoginPage;
+export default SignupPage;
